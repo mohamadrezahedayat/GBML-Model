@@ -5,7 +5,7 @@
         public int CostCenterId, NumSeq, Index;
         public double FreeCharge,
             RemainHour,
-            RemainHour_2,
+            RemainHour2,
             MaxHour,
             FreeWeight,
             Pcn,
