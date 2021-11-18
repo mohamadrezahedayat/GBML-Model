@@ -14,16 +14,16 @@ namespace GBML_Model
             double k2 = 0;
             double k3 = 0;
 
-            ///Sponge iron 201
+            //Sponge iron 201
             PublicData.SpongeIron = Ret.ReturnElements_eaf(ref expenseItems, costCenter, prod, 201, k1, k2, k3, 0);
 
-            ///Recuperable Materials 205
+            //Recuperable Materials 205
             PublicData.RecuperableMaterials = Ret.ReturnElements_eaf(ref expenseItems, costCenter, prod, 205, k1, k2, k3, 0);
 
             PublicData.ChargingRatio[prod.Index] =
                 PublicData.Products
-                - PublicData.SpongeIron///201
-                + PublicData.RecuperableMaterials///205
+                - PublicData.SpongeIron//201
+                + PublicData.RecuperableMaterials//205
                 ;
 
             PublicData.TotCharg = PublicData.TotCharg + PublicData.ChargingRatio[prod.Index];

@@ -7,7 +7,7 @@ namespace GBML_Model
     {
         public void Formula(CostCenter costCenter, PossibleProducts prod)
         {
-            double k1 = PublicData.TablesTechData.Where(c => c.Des.Equals("K1") && c.CcCod == costCenter.Code).FirstOrDefault().NumCoef;  //101
+            double k1 = PublicData.TablesTechData.FirstOrDefault(c => c.Des.Equals("K1") && c.CcCod == costCenter.Code).NumCoef;  //101
             double tr = PublicData.TablesTechData.Where(c => c.Des.Equals("Tr") && c.CcCod == costCenter.Code).FirstOrDefault().NumCoef;  //135
             double r = PublicData.TablesTechData.Where(c => c.Des.Equals("R") && c.CcCod == costCenter.Code).FirstOrDefault().NumCoef;  //174
             PublicData.PossibleProducts[prod.Index].ThiknessProdNew = PublicData.PossibleProducts[prod.Index].ThiknessProd;

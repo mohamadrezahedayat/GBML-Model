@@ -131,7 +131,7 @@ namespace GBML_Model
         {
             ArrayList expenseItem = new ArrayList();
             if (flgFerro != 1)
-                expitExpenseId = PublicData.ExtractAssign.Where(b => b.CostCenterId == costCenterId && b.CodPos == codPos).FirstOrDefault().ExpitExpenseId;
+                expitExpenseId = PublicData.ExtractAssign.FirstOrDefault(b => b.CostCenterId == costCenterId && b.CodPos == codPos).ExpitExpenseId;
             expenseItem.Add(costCenterId);
             expenseItem.Add(prod.Id);
             expenseItem.Add(expitExpenseId);

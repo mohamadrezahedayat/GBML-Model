@@ -3,8 +3,6 @@
     class ResultQtyHour
     {
         public double QtyHour;
-        public int NumSeq,
-            NumPalma,
-            Index;
+        public int NumSeq, NumPalma, Index;
     }
 }

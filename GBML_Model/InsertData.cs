@@ -8,13 +8,14 @@ namespace GBML_Model
 {
     class InsertData
     {
+       
         public void InsertResults(ArrayList expenseItems)
         {
-            StreamWriter writeDateTime = new StreamWriter(PublicData.InputPath + "\\inserResults_" + (DateTime.Now.ToString($"yyyyMMddHH_mmss")) + ".txt");
-            DateTime startTot, endTot;
-            startTot = DateTime.Now;
+            StreamWriter writeDateTime =
+                new StreamWriter($"{PublicData.InputPath}\\inserResults_{DateTime.Now:yyyyMMddHH_mmss}.txt");
+            var startTot = DateTime.Now;
             InsertRecupExp(expenseItems);
-            endTot = DateTime.Now;
+            var endTot = DateTime.Now;
             writeDateTime.WriteLine("InsertRecupExp:" + (endTot - startTot).TotalSeconds);
             startTot = DateTime.Now;
             UpdateRecupExp();
@@ -30,6 +31,7 @@ namespace GBML_Model
             writeDateTime.WriteLine("UpdateQtyStdMadat:" + (endTot - startTot).TotalSeconds);
             writeDateTime.Close();
         }
+
         public void InsertPcnResult(ActiveMachine activeMachin, string type)
         {
             if (type == "PCN_ALT_MAC")
@@ -46,6 +48,7 @@ namespace GBML_Model
                 UpdateQtyPossibleProd();
             }
         }
+
         private void InsertRecupExp(ArrayList expenseItems)
         {
             if (expenseItems.Count == 0)
@@ -61,6 +64,7 @@ namespace GBML_Model
                 machinDataId.Add(item[3]);
                 qtyBsstd.Add(item[4]);
             }
+
             int maxRecord = expItemId.Count;
             clsData.ExecuteCommand(@"begin
                                         apps.App_Stg_Tps_Gbml_Model_Pkg.delete_recup_Exp_prc(
@@ -81,6 +85,7 @@ namespace GBML_Model
                 qtyBsstd.ToArray(typeof(double)) as double[],
                 machinDataId.ToArray(typeof(int)) as int[]);
         }
+
         private void UpdateMachinData()
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -103,6 +108,7 @@ namespace GBML_Model
                 possibleProductId.Add(item.Id);
                 codProdFthr.Add(item.CodProdFather);
             }
+
             int maxRecord = machinDataId.Count;
             if (maxRecord > 0)
             {
@@ -134,6 +140,7 @@ namespace GBML_Model
                     codProdFthr.ToArray(typeof(string)) as string[]);
             }
         }
+
         public void UpdateRecupExp()
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -144,6 +151,7 @@ namespace GBML_Model
                 machinDataId.Add(item.MachinDataId);
                 qtyYear.Add(item.QtyYear);
             }
+
             int maxRecord = machinDataId.Count;
             if (maxRecord == 0)
                 return;
@@ -158,6 +166,7 @@ namespace GBML_Model
                 qtyYear.ToArray(typeof(double)) as double[]
             );
         }
+
         public void UpdateVirtMachineData()
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -169,6 +178,7 @@ namespace GBML_Model
                                         apps.App_Stg_Tps_Gbml_Model_Pkg.update_virt_Machin_Datas_prc();
                                      end;");
         }
+
         public void UpdateQtyStdMadat()
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -181,6 +191,7 @@ namespace GBML_Model
                     possibleProductId.Add(item.Id);
                     qtyYear.Add(data.QtyYear);
                 }
+
             int maxRecord = possibleProductId.Count;
             if (maxRecord == 0)
                 return;
@@ -194,11 +205,13 @@ namespace GBML_Model
                 possibleProductId.ToArray(typeof(int)) as int[]
             );
         }
+
         public void DeleteGbmlRuns(string lkpGrp)
         {
             Database clsData = new Database(PublicData.ConnectionServer);
             clsData.ExecuteCommand("Delete From Coa.Coa_Gbml_Runs r Where r.Lkp_Grp_Alt_Gbmlr = '" + lkpGrp + "'");
         }
+
         private void UpdatePcnAlternative(int activeMachinId, string type, string lkpGroup)
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -213,7 +226,8 @@ namespace GBML_Model
 
             foreach (AlternativeMachine item in PublicData.AlternativeMachine)
             {
-                PcnCostCenter cost = PublicData.PcnCostCenter.Where(a => a.CostCenterId == item.CostCenterId).FirstOrDefault();
+                PcnCostCenter cost = PublicData.PcnCostCenter.Where(a => a.CostCenterId == item.CostCenterId)
+                    .FirstOrDefault();
                 flgAlt.Add(PublicData.FlgPcnCostCenter);
                 pcn.Add(item.Pcn);
                 pcnPalma.Add(cost.Pcn);
@@ -223,6 +237,7 @@ namespace GBML_Model
                 typeArray.Add(type);
                 lkpGroups.Add(lkpGroup);
             }
+
             int maxRecord = flgAlt.Count;
             clsData.ExecuteCommand(@"begin
                                         apps.App_Stg_Tps_Gbml_Model_Pkg.update_Pcn_Alternative_prc(
@@ -246,6 +261,7 @@ namespace GBML_Model
                 lkpGroups.ToArray(typeof(string)) as string[]
             );
         }
+
         private void UpdateRecupExp_ALt(int activeMachinId, string lkpGroup)
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -261,6 +277,7 @@ namespace GBML_Model
                     activeMachin.Add(activeMachinId);
                     lkpGroups.Add(lkpGroup);
                 }
+
             int maxRecord = activeMachin.Count;
             clsData.ExecuteCommand(@"begin
                                         apps.App_Stg_Tps_Gbml_Model_Pkg.update_Recup_Exp_Alt_prc(
@@ -276,6 +293,7 @@ namespace GBML_Model
                 lkpGroups.ToArray(typeof(string)) as string[]
             );
         }
+
         private void DeleteRecupExp_ALt(int activeMachinId, string lkpGroup)
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -283,6 +301,7 @@ namespace GBML_Model
                 "begin apps.App_Stg_Tps_Gbml_Model_Pkg.delete_Recup_Exp_Alt_prc(p_Machine_Load_Area_Id => "
                 + activeMachinId + ", p_Lkp_Group => " + lkpGroup + "); end;");
         }
+
         private void InsertGbmlRuns(int activeMachinId, string lkpGroup)
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -303,7 +322,8 @@ namespace GBML_Model
             ArrayList lkp = new ArrayList();
             foreach (AlternativeMachine item in PublicData.AlternativeMachine)
             {
-                PcnCostCenter cost = PublicData.PcnCostCenter.Where(a => a.CostCenterId == item.CostCenterId).FirstOrDefault();
+                PcnCostCenter cost = PublicData.PcnCostCenter.Where(a => a.CostCenterId == item.CostCenterId)
+                    .FirstOrDefault();
                 flg.Add(PublicData.FlgPcnCostCenter);
                 pcn.Add(item.Pcn);
                 pcnPalma.Add(cost.Pcn);
@@ -320,6 +340,7 @@ namespace GBML_Model
                 freeCharge.Add(item.FreeCharge);
                 lkp.Add(lkpGroup.ToString());
             }
+
             int maxRecord = machineLoadAreaId.Count;
             clsData.ExecuteCommand(@"begin
                                         apps.App_Stg_Tps_Gbml_Model_Pkg.insert_Gbml_Runs_prc(
@@ -357,6 +378,7 @@ namespace GBML_Model
                 lkp.ToArray(typeof(string)) as string[]
             );
         }
+
         private void UpdateMachinData_Qty(string lkpGroup)
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -367,6 +389,7 @@ namespace GBML_Model
                 machinDataId.Add(item.MachinDataId);
                 lkp.Add(lkpGroup);
             }
+
             int maxRecord = machinDataId.Count;
             clsData.ExecuteCommand(@"begin
                                         apps.App_Stg_Tps_Gbml_Model_Pkg.update_Machine_Data_Qty_prc(
@@ -377,6 +400,7 @@ namespace GBML_Model
                 machinDataId.ToArray(typeof(int)) as int[],
                 lkp.ToArray(typeof(string)) as string[]);
         }
+
         private void UpdateQtyPossibleProd()
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -389,6 +413,7 @@ namespace GBML_Model
                 qtyProd.Add(Math.Round(item.QtyProd, 3));
                 qtyChrg.Add(Math.Round(item.QtyChrg, 3));
             }
+
             int maxRecord = possibleProductId.Count;
             clsData.ExecuteCommand(@"begin
                                         apps.App_Stg_Tps_Gbml_Model_Pkg.update_Qty_Possible_Prod_prc(
@@ -401,6 +426,7 @@ namespace GBML_Model
                 qtyProd.ToArray(typeof(double)) as double[],
                 qtyChrg.ToArray(typeof(double)) as double[]);
         }
+
         private void UpdateChargeProd(String subArea)
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -408,6 +434,7 @@ namespace GBML_Model
                                         apps.App_Stg_Tps_Gbml_Model_Pkg.update_Upd_Chrg_Prod_prc
                                         (p_cod_subArea => " + subArea + "); end;");
         }
+
         private void UpdateNum_Cont(int machineLoadAreaId)
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -415,6 +442,7 @@ namespace GBML_Model
                                         apps.App_Stg_Tps_Gbml_Model_Pkg.update_Num_Cont_prc(
                                                 p_Machine_Load_Area_Id => " + machineLoadAreaId + "); end;");
         }
+
         public void InsertProductAttributes()
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -432,6 +460,7 @@ namespace GBML_Model
                 codFather.ToArray(typeof(string)) as string[],
                 null);
         }
+
         public void InsertTransportProducts()
         {
             Database clsData = new Database(PublicData.ConnectionServer);
@@ -445,6 +474,7 @@ namespace GBML_Model
                     codFather.Add(item.CodProdFather);
                     costCenterId.Add(item.CostCenterId);
                 }
+
             int maxRecord = codFather.Count;
             clsData.ExecuteCommand(@"
                 begin

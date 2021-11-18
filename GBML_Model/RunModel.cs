@@ -78,8 +78,6 @@ namespace GBML_Model
                     _formulaCharge = new Formula17Charge(PublicData.ReturnFormulaElements);
                     _formulaCharge.Formula(_codCostCenter, prod, ref expenseItems);
                     break;
-                default:
-                    break;
             }
         }
         private void StdFormulaSelector(PossibleProducts prod, int formuleNumber)
@@ -134,13 +132,12 @@ namespace GBML_Model
                     _formulaStd = new Formula17Std();
                     _formulaStd.Formula(_codCostCenter, prod);
                     break;
-                default:
-                    break;
+                
             }
         }
-        private void ChangeDimFormulaSelector(PossibleProducts prod, int formuleNumber)
+        private void ChangeDimFormulaSelector(PossibleProducts prod, int formulaNumber)
         {
-            switch (formuleNumber)
+            switch (formulaNumber)
             {
                 case 1:
                     _formulaChangeDim = new Formula1ChangeDim();

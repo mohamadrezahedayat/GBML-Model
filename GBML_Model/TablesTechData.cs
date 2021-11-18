@@ -2,10 +2,7 @@
 {
     class TablesTechData
     {
-        public int Index,
-            CodTchdt,
-            CcCod,
-            ExpitExpenseId;
+        public int Index, CodTchdt, CcCod, ExpitExpenseId;
         public double NumCoef;
         public double[] NumCoefEaf;
         public string Des;

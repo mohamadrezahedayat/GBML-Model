@@ -37,45 +37,45 @@ namespace GBML_Model
 
         public static double[] ChargingRatio, Std;
 
-        public static double Paintlosses, ///02314 Paint losses
-            Accidental, ///02315 accidental
-            Samples, ///02318 samples
-            HeadAndTail, ///02310 Coil process Scraps head & tail
-            DryCoating, ///05067 Dry coating products charge
-            CoilProcess, ///02350 Coil Process (scraps - accidental - samples - head and tail)
-            ConsumableTin, ///05065 Consumable Tin anodes
-            TinLosses, ///02329 .Tin losses for drap-out 
-            ZincIngot, ///05066 Zinc ingot feed
-            ZincLosses, ///02313 . Zinc losses for drap-out 
-            Trimming, ///02320 Trimming
-            CoilLoss, ///02990 coil process loss
-            LossSample, ///02310 Loss for sample
-            BarCrops, ///02340 bar crops
-            HeatingScale, ///02140 heating scale
-            Cobbles, ///02330 Cobbles
-            OxideScale, ///02100 Oxide scale
-            Slabcrops, ///02290 Slab crops
-            SlabTrimmer, ///02300 Slab Trimmer
-            SlabScrapped, ///02280 Slab scrapped
-            SlabLosses, ///02110 Slab cutting Losses
-            LadleSkull, ///02270 Ladle skull & liquidSteel splashed 
-            TundishSkull, ///02260 Tundish skull 
-            SpongeIron, ///Sponge iron
-            Scrap, ///Scrap
-            NormalHeat, ///Ferroalloy for Normal Heat 
-            RecycledSteel, ///Ferroalloy for Recycled steel
+        public static double Paintlosses,               //02314 Paint losses
+            Accidental,                 //02315 accidental
+            Samples,                //02318 samples
+            HeadAndTail,                //02310 Coil process Scraps head & tail
+            DryCoating,                 //05067 Dry coating products charge
+            CoilProcess,                //02350 Coil Process (scraps - accidental - samples - head and tail)
+            ConsumableTin,              //05065 Consumable Tin anodes
+            TinLosses,              //02329 .Tin losses for drap-out 
+            ZincIngot,              //05066 Zinc ingot feed
+            ZincLosses,                 //02313 . Zinc losses for drap-out 
+            Trimming,               //02320 Trimming
+            CoilLoss,               //02990 coil process loss
+            LossSample,                 //02310 Loss for sample
+            BarCrops,               //02340 bar crops
+            HeatingScale,               //02140 heating scale
+            Cobbles,                //02330 Cobbles
+            OxideScale,                 //02100 Oxide scale
+            Slabcrops,              //02290 Slab crops
+            SlabTrimmer,                //02300 Slab Trimmer
+            SlabScrapped,               //02280 Slab scrapped
+            SlabLosses,                 //02110 Slab cutting Losses
+            LadleSkull,                 //02270 Ladle skull & liquidSteel splashed 
+            TundishSkull,               //02260 Tundish skull 
+            SpongeIron,                 //Sponge iron
+            Scrap,              //Scrap
+            NormalHeat,                 //Ferroalloy for Normal Heat 
+            RecycledSteel,              //Ferroalloy for Recycled steel
             RecuperableMaterials;
 
-        ///Recuperable Materials                                                    
+                        //Recuperable Materials                                                    
         public static double Products = 1;
 
-        ///PRODUCTS
-        public static double TotStd, ///Total Standard Time
-            TotCharg, ///Total Charge
-            TotQtyStd, ///Total Standard Time * Qty Prod
+                        //PRODUCTS
+        public static double TotStd,                //Total Standard Time
+            TotCharg,               //Total Charge
+            TotQtyStd,              //Total Standard Time * Qty Prod
             TotQtyCharg;
 
-        ///Total Charge * Qty Prod
+                        //Total Charge * Qty Prod
         public static int[] LkpGroupHfl;
 
         public static int NumAltMachine;

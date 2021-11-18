@@ -6,8 +6,8 @@ namespace GBML_Model
     {
         public void Formula(CostCenter costCenter, PossibleProducts prod)
         {
-            double sm = PublicData.TablesTechData.Where(c => c.Des.Equals("Sm") && c.CcCod == costCenter.Code).FirstOrDefault().NumCoef;//151
-            double nw = PublicData.TablesTechData.Where(c => c.Des.Equals("Nw") && c.CcCod == costCenter.Code).FirstOrDefault().NumCoef;//116
+            double sm = PublicData.TablesTechData.FirstOrDefault(c => c.Des.Equals("Sm") && c.CcCod == costCenter.Code).NumCoef;//151
+            double nw = PublicData.TablesTechData.FirstOrDefault(c => c.Des.Equals("Nw") && c.CcCod == costCenter.Code).NumCoef;//116
             double iw = PublicData.TablesTechData.Where(c => c.Des.Equals("Iw") && c.CcCod == costCenter.Code).FirstOrDefault().NumCoef;//117
             double co = PublicData.TablesTechData.Where(c => c.Des.Equals("Co") && c.CcCod == costCenter.Code).FirstOrDefault().NumCoef;//182
             double s = PublicData.TablesTechData.Where(c => c.Des.Equals("S") && c.CcCod == costCenter.Code).FirstOrDefault().NumCoef;  //183

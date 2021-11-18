@@ -34,13 +34,11 @@ namespace GBML_Model
             {
                 if (PublicData.ChargingRatio[PublicData.PossibleProducts[i].Index] > 0 || PublicData.Std[PublicData.PossibleProducts[i].Index] > 0)
                 {
-                    writePossibleProducts.WriteLine((PublicData.PossibleProducts[i].Id)
-                                                    + "," + (PublicData.PossibleProducts[i].CodProd)
-                                                    + "," + (codCostCenter)
-                                                    + "," + (PublicData.Std[PublicData.PossibleProducts[i].Index])
-                                                    + "," + (PublicData.ChargingRatio[PublicData.PossibleProducts[i].Index])
-                                                    + "," + (PublicData.PossibleProducts[i].QtyProd));
+                    var a =
+                        $"{PublicData.PossibleProducts[i].Id},{PublicData.PossibleProducts[i].CodProd},{codCostCenter}{PublicData.Std[PublicData.PossibleProducts[i].Index]},{PublicData.ChargingRatio} ,{PublicData.PossibleProducts[i].QtyProd}";
+                    writePossibleProducts.WriteLine(a);
                 }
+
             }
             writePossibleProducts.Close();
 
@@ -50,13 +48,9 @@ namespace GBML_Model
             {
                 if ((PublicData.ChargingRatio[PublicData.PossibleProducts[i].Index] * PublicData.PossibleProducts[i].QtyProd) > 0 || (PublicData.Std[PublicData.PossibleProducts[i].Index] * PublicData.PossibleProducts[i].QtyProd) > 0)
                 {
-                    writePossibleProducts.WriteLine((PublicData.PossibleProducts[i].Id)
-                                                    + "," + (PublicData.PossibleProducts[i].CodProd)
-                                                    + "," + (codCostCenter)
-                                                    + "," + (PublicData.Std[PublicData.PossibleProducts[i].Index]
-                                                             * PublicData.PossibleProducts[i].QtyProd)
-                                                    + "," + (PublicData.ChargingRatio[PublicData.PossibleProducts[i].Index]
-                                                             * PublicData.PossibleProducts[i].QtyProd));
+                    var toWrite =
+                        $@"{PublicData.PossibleProducts[i].Id},{PublicData.PossibleProducts[i].CodProd},{codCostCenter},{PublicData.Std[PublicData.PossibleProducts[i].Index] * PublicData.PossibleProducts[i].QtyProd},{PublicData.ChargingRatio[PublicData.PossibleProducts[i].Index] * PublicData.PossibleProducts[i].QtyProd}";
+                    writePossibleProducts.WriteLine(toWrite);
                 }
             }
             writePossibleProducts.Close();

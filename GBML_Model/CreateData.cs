@@ -101,10 +101,8 @@ namespace GBML_Model
                                       From Coa_Assignment_Machines Assma
                                       Where Assma.Mlcyc_Machine_Load_Cycle_Id In
                                         (Select Mlcyc.Machine_Load_Cycle_Id
-                                         From 
-                                            Coa_Machine_Load_Cycles Mlcyc
-                                         Where 
-                                            Mlcyc.Mlare_Machine_Load_Area_Id = {activeMachine.Id})
+                                         From Coa_Machine_Load_Cycles Mlcyc
+                                         Where Mlcyc.Mlare_Machine_Load_Area_Id = {activeMachine.Id})
                                             And Assma.Lkp_Grp_Alt_Assma Is Not Null)";
 
             dt = _workDatabase.GetDataTable(commandString, CommandType.Text);
@@ -138,7 +136,7 @@ namespace GBML_Model
                     and m1.machine_load_area_id= {activeMachine.Id}
                     and ({_flgCostCenter} = 0 or t.cod_cc_ccntr in ('{_costCenterCodTest}'))
                 order by
-                    t.cod_cc_ccntr ;";
+                    t.cod_cc_ccntr";
 
             dt = _workDatabase.GetDataTable(commandString, CommandType.Text);
             PublicData.NumCostCenter = dt.Rows.Count;
@@ -202,8 +200,8 @@ namespace GBML_Model
                     And Assma.Assignment_Machine_Id = Madat.Assma_Assignment_Machine_Id
                     And Pospr.Proat_Product_Attribute_Id = Proat.Product_Attribute_Id 
                     And Asscyc.Pospr_Possible_Product_Id = Pospr.Possible_Product_Id 
-                    And Pospr.Mlare_Machine_Load_Area_Id = {0}
-                    And Assma.Ccntr_Cost_Center_Id = {1}
+                    And Pospr.Mlare_Machine_Load_Area_Id = {machineLoadId}
+                    And Assma.Ccntr_Cost_Center_Id = {costCenterId}
                     --And Pospr.Possible_Product_Id = 15640 ---for test must be deleted
                     --and Madat.Qty_Prod_Madat > 1
                 Order By 
@@ -226,9 +224,7 @@ namespace GBML_Model
                     Proat.Cod_Next_User_Proat,
                     Proat.Tks_Prod_Proat,
                     Proat.Wid_Prod_Proat,
-                    Proat.Lth_Prod_Proat,
-                    {machineLoadId},
-                    {costCenterId};";
+                    Proat.Lth_Prod_Proat";
 
             dt = _workDatabase.GetDataTable(commandString, CommandType.Text);
             PublicData.NumPossibleProducts = dt.Rows.Count;
@@ -369,7 +365,7 @@ namespace GBML_Model
         }
         public void GetNumFormulas(CostCenter costCenter)
         {
-            string commandString = string.Format($@"
+            string commandString = $@"
                 select distinct t.cod_cc_ccntr,
                     t.num_dir_mat_ccntr,
                     t.num_std_prod_ccntr,
@@ -383,10 +379,9 @@ namespace GBML_Model
                     c.mlare_machine_load_area_id = m1.machine_load_area_id
                     and a.mlcyc_machine_load_cycle_id = c.machine_load_cycle_id
                     and t.cost_center_id = a.ccntr_cost_center_id
-                    and t.cost_center_id = {0}
+                    and t.cost_center_id = {costCenter.Id}
                     and t.flg_virt_ccntr is null
-                    order by t.cod_cc_ccntr,
-                    {costCenter.Id}");
+                    order by t.cod_cc_ccntr";
 
             DataTable dt = _workDatabase.GetDataTable(commandString, CommandType.Text);
 

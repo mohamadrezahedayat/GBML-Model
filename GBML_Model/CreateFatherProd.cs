@@ -8,9 +8,9 @@ namespace GBML_Model
         {
             if (type == "TRANSPORT")
             {
-                string codSha = possibleProduct.CodShapeMid.ToString("000");
-                string codTyp = possibleProduct.CodTypeMid.ToString("0");
-                string codEdge = possibleProduct.CodEdgeMid.ToString("0");
+                var codSha = possibleProduct.CodShapeMid.ToString("000");
+                var codTyp = possibleProduct.CodTypeMid.ToString("0");
+                var codEdge = possibleProduct.CodEdgeMid.ToString("0");
                 string codSur = possibleProduct.CodSurfaceMid.ToString("00");
                 string codFla = possibleProduct.CodRoughnessMid.ToString("00");
                 string codPtc = possibleProduct.CodProtectionMid.ToString("0");
